@@ -1,7 +1,6 @@
 const { generarJWT } = require("../helpers/jwt")
-const usuario = require("../models/usuario")
-const Usuario = require("../models/usuario")
 const bcrypt = require('bcryptjs')
+const Usuario = require('../models/usuario');
 
 const crearUsuario = async (req, res) => {
 
@@ -73,12 +72,13 @@ const login = async (req, res) => {
 
         return res.json({
             ok: true,
-            usuario: userDB,
+            user: userDB,
             token
         })
 
         
     } catch (error) {
+        console.error(error)
         return res.status(500).json({
             ok: false,
             message: 'Hable con el administrador'
@@ -97,15 +97,13 @@ const renewToken = async(req, res) => {
 
     return res.json({
         ok: true,
-        usuario: newUser,
+        user: newUser,
         token: newToken
     })
 }
 
-
-
 module.exports = {
     crearUsuario,
     login,
-    renewToken
+    renewToken,
 }
